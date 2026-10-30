@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>销售经营看板 · 2026</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="logo">DB</span>
+    <div>
+      <h1>销售经营看板</h1>
+      <p class="sub">2026-01-01 至 2026-10-31 · 模拟数据集</p>
+    </div>
+  </div>
+  <div class="meta" id="meta">
+    <span class="dot"></span><span id="metaText">数据加载中…</span>
+  </div>
+</header>
+
+<nav class="filters" aria-label="筛选条件">
+  <label>区域
+    <select id="fRegion"><option value="">全部</option></select>
+  </label>
+  <label>渠道
+    <select id="fChannel"><option value="">全部</option></select>
+  </label>
+  <label>品类
+    <select id="fCategory"><option value="">全部</option></select>
+  </label>
+  <button id="btnReset" type="button" class="btn-ghost">重置筛选</button>
+</nav>
+
+<main>
+  <section class="kpis" aria-label="核心指标">
+    <article class="kpi">
+      <p class="kpi-label">销售额</p>
+      <p class="kpi-value" id="kpiAmount">—</p>
+      <p class="kpi-foot" id="kpiAmountFoot">&nbsp;</p>
+    </article>
+    <article class="kpi">
+      <p class="kpi-label">毛利额</p>
+      <p class="kpi-value" id="kpiProfit">—</p>
+      <p class="kpi-foot" id="kpiProfitFoot">&nbsp;</p>
+    </article>
+    <article class="kpi">
+      <p class="kpi-label">毛利率</p>
+      <p class="kpi-value" id="kpiMargin">—</p>
+      <p class="kpi-foot">毛利额 / 销售额</p>
+    </article>
+    <article class="kpi">
+      <p class="kpi-label">订单数</p>
+      <p class="kpi-value" id="kpiOrders">—</p>
+      <p class="kpi-foot" id="kpiOrdersFoot">&nbsp;</p>
+    </article>
+    <article class="kpi">
+      <p class="kpi-label">客单价</p>
+      <p class="kpi-value" id="kpiAov">—</p>
+      <p class="kpi-foot">销售额 / 订单数</p>
+    </article>
+  </section>
+
+  <section class="grid">
+    <div class="card card-wide">
+      <div class="card-head">
+        <h2>销售额趋势</h2>
+        <span class="hint">按日聚合，切换粒度查看</span>
+      </div>
+      <div class="seg" id="grainSeg" role="group" aria-label="时间粒度">
+        <button type="button" data-grain="day" class="is-active">日</button>
+        <button type="button" data-grain="week">周</button>
+        <button type="button" data-grain="month">月</button>
+      </div>
+      <div class="chart-box tall"><canvas id="chartTrend"></canvas></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h2>区域占比</h2></div>
+      <div class="chart-box"><canvas id="chartRegion"></canvas></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h2>渠道销售与毛利率</h2></div>
+      <div class="chart-box"><canvas id="chartChannel"></canvas></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h2>品类销售额</h2></div>
+      <div class="chart-box"><canvas id="chartCategory"></canvas></div>
+    </div>
+
+    <div class="card card-wide">
+      <div class="card-head">
+        <h2>明细数据</h2>
+        <span class="hint" id="tableHint"></span>
+      </div>
+      <div class="table-wrap">
+        <table id="detailTable">
+          <thead>
+            <tr>
+              <th data-key="date">日期</th>
+              <th data-key="region">区域</th>
+              <th data-key="city">城市</th>
+              <th data-key="channel">渠道</th>
+              <th data-key="category">品类</th>
+              <th data-key="qty" class="num">数量</th>
+              <th data-key="amount" class="num">销售额</th>
+              <th data-key="profit" class="num">毛利额</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="pager">
+        <button type="button" id="prevPage" class="btn-ghost">上一页</button>
+        <span id="pageInfo"></span>
+        <button type="button" id="nextPage" class="btn-ghost">下一页</button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <p>数据由 <code>assets/gen_data.py</code> 脚本生成，用于功能演示，不代表任何真实经营情况。</p>
+  </footer>
+</main>
+
+<script src="assets/vendor/chart.umd.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
